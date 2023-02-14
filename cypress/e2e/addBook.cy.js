@@ -37,3 +37,11 @@ it("Add book", () => {
     .then((elements) => elements[0].validationMessage)
     .should("contain", "Заполните это поле.");
  });
+
+ it("Should delete book from favorite", () => {
+  cy.visit("/favorites");
+  cy.contains(bookSecond.title)
+    .should("be.visible")
+    .within(() => cy.get(".card-footer > .btn").click({ force: true }));
+  cy.contains(bookSecond.title).should("not.exist");
+});
